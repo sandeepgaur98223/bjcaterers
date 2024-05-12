@@ -1,10 +1,14 @@
-<h1 class="centered">B.J Caterers</h1>
-<h2>{{menuitems.length}}</h2>
+<!-- Heading with styled business name -->
+<h1 class="centered business-name">B.J Caterers</h1>
+
 <h2 *ngIf="menuitems.length==0">Please add an Item to continue</h2>
 
 <ul *ngFor="let items of menuitems; let i = index">
 <li>
-{{items.item}} -- {{items.price}}
+<ng-container *ngIf="i !=editIndex">
+{{items.item}} -- Rs. {{items.price}}
+</ng-container>
+
 <input type="checkbox" (click)="checkBoxClicked($event.target,items,i)" [hidden]="i ==editIndex"/>
 <button (click)="editItem(i)" [hidden]="i ==editIndex">Edit</button>
 <button (click)="deleteItem(i)" [hidden]="i ==editIndex" >Delete</button>
@@ -35,3 +39,5 @@ Per Person Cost: {{sum}}
 Number of People?: <input type="number" placeholder="enter count" (change)="calculateTotal($event.target)" width:10px/>
 <br>
 Total Cost: {{TotalCost}}
+<br>
+<br>

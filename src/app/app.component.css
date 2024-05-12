@@ -1,5 +1,92 @@
-.centered{
-  text-align: center
+/* Styles for the catering website */
+
+/* CSS styles for the business name */
+
+.business-name {
+  font-family: 'Arial', sans-serif; /* Use a modern and clean font */
+  font-size: 48px; /* Adjust size as needed */
+  color: #333; /* Dark gray color */
+  animation: neon-glow 1.5s infinite alternate; /* Add a subtle neon glow animation */
+}
+
+@keyframes neon-glow {
+  from {
+    text-shadow: 0 0 5px #4CAF50, 0 0 10px #4CAF50, 0 0 15px #4CAF50; /* Neon glow effect */
+  }
+  to {
+    text-shadow: 0 0 5px #4CAF50, 0 0 15px #4CAF50, 0 0 25px #4CAF50; /* Neon glow effect */
+  }
 }
 
 
+
+
+/* Center the heading */
+.centered {
+  text-align: center;
+}
+
+/* Style the heading */
+h1 {
+  font-size: 36px;
+  color: #333; /* Dark gray color */
+  margin-top: 20px;
+}
+
+/* Style the menu items list */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  background-color: #f9f9f9; /* Light gray background */
+}
+
+/* Style the input fields */
+input[type="text"],
+input[type="number"] {
+  width: 150px;
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+}
+
+/* Style the buttons */
+button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049; /* Darker green background on hover */
+}
+
+/* Hide the add item button when not needed */
+button[hidden] {
+  display: none;
+}
+
+/* Style the total cost */
+p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Style the number of people input */
+input[type="number"] {
+  width: 80px;
+}
+
+/* Style the total cost */
+p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}

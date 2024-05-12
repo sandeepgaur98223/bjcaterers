@@ -65,6 +65,7 @@ export class AppComponent {
       this.sum-=this.menuitems[i].price;
     }
     this.menuitems.splice(i,1);
+    this.TotalCost=this.sum*this.noOfPeople;
   }
 
   editItem(i:number){
@@ -81,5 +82,6 @@ export class AppComponent {
     {
       this.sum+=this.menuitems[i].price;
     }
+    this.TotalCost=this.sum*this.noOfPeople;
   }
 }
