@@ -1,2 +1,11 @@
-
 <h1 class="centered">B.J Caterers</h1>
+<h2>{{menuitems.length}}</h2>
+
+<ul *ngFor="let items of menuitems">
+<li>{{items.item}} -- {{items.price}}<input type="checkbox" (click)="checkBoxClicked($event.target,items)"/></li>
+</ul>
+
+Per Person Cost: {{sum}}
+Number of People?: <input placeholder="please enter the count" (keydown)="calculateTotal($event.target)"/>
+
+Total Cost: {{TotalCost}}
