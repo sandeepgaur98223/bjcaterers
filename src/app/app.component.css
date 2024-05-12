@@ -4,22 +4,17 @@
 
 .business-name {
   font-family: 'Arial', sans-serif; /* Use a modern and clean font */
-  font-size: 48px; /* Adjust size as needed */
-  color: #333; /* Dark gray color */
-  animation: neon-glow 1.5s infinite alternate; /* Add a subtle neon glow animation */
+  font-size: 60px; /* Increase font size for prominence */
+  color: #4CAF50; /* Green color */
+  text-transform: uppercase; /* Convert text to uppercase for emphasis */
+  letter-spacing: 2px; /* Add spacing between letters for readability */
+  margin-top: 50px; /* Add some space above the heading */
+  transition: transform 0.3s ease-in-out; /* Add transition for smooth hover effect */
 }
 
-@keyframes neon-glow {
-  from {
-    text-shadow: 0 0 5px #4CAF50, 0 0 10px #4CAF50, 0 0 15px #4CAF50; /* Neon glow effect */
-  }
-  to {
-    text-shadow: 0 0 5px #4CAF50, 0 0 15px #4CAF50, 0 0 25px #4CAF50; /* Neon glow effect */
-  }
+.business-name:hover {
+  transform: scale(1.05); /* Scale up the text on hover */
 }
-
-
-
 
 /* Center the heading */
 .centered {
