@@ -1,11 +1,37 @@
 <h1 class="centered">B.J Caterers</h1>
 <h2>{{menuitems.length}}</h2>
+<h2 *ngIf="menuitems.length==0">Please add an Item to continue</h2>
 
-<ul *ngFor="let items of menuitems">
-<li>{{items.item}} -- {{items.price}}<input type="checkbox" (click)="checkBoxClicked($event.target,items)"/></li>
+<ul *ngFor="let items of menuitems; let i = index">
+<li>
+{{items.item}} -- {{items.price}}
+<input type="checkbox" (click)="checkBoxClicked($event.target,items,i)" [hidden]="i ==editIndex"/>
+<button (click)="editItem(i)" [hidden]="i ==editIndex">Edit</button>
+<button (click)="deleteItem(i)" [hidden]="i ==editIndex" >Delete</button>
+<ng-container *ngIf="i ==editIndex">
+<input type="text" placeholder="enter item" [(ngModel)]="menuitems[i].item" />
+<input type="number" placeholder="enter price" [(ngModel)]="menuitems[i].price" />
+<button (click)="SaveEditedItem(i)">Save</button>
+</ng-container>
+
+</li>
 </ul>
 
-Per Person Cost: {{sum}}
-Number of People?: <input placeholder="please enter the count" (keydown)="calculateTotal($event.target)"/>
+<button (click)="hideAddItem=false" [hidden]=!hideAddItem>Add Item</button>
+<br>
+<ng-container *ngIf=!hideAddItem>
+<p>Add Item:</p>
+<br>
+<input type="text" placeholder="enter item" [(ngModel)]="newItem" />
+<input type="number" placeholder="enter price" [(ngModel)]="newItemPrice" />
+<button (click)="addNewItem()">Add</button>
+<br>
+<br>
+</ng-container>
 
+<br>
+Per Person Cost: {{sum}}
+<br>
+Number of People?: <input type="number" placeholder="enter count" (change)="calculateTotal($event.target)" width:10px/>
+<br>
 Total Cost: {{TotalCost}}
