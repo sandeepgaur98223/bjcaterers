@@ -2,6 +2,8 @@
 <h1 class="centered business-name">B.J Caterers</h1>
 
 <h2 *ngIf="menuitems.length==0">Please add an Item to continue</h2>
+<h2 *ngIf="menuitems.length!=0">Please add an Item to continue</h2>
+
 
 <ul *ngFor="let items of menuitems; let i = index">
 <li>
