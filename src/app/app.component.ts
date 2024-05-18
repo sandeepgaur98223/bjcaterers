@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -11,6 +12,7 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
   title = 'bjcaterers';
   sum=0;
@@ -20,13 +22,32 @@ export class AppComponent {
   newItem="";
   newItemPrice=0;
   editIndex=-1;
+  ///Emp Expenditure
+  empTotal=0;
+  hideEmpAddItem=true;
+  newEmpType="";
+  newEmpCount:number=0;
+  newEmpPPCost:number=0;
 
+
+ constructor() {
+    this.employeeExpend = this.employeeExpend.map(employee => ({
+      ...employee,
+      Total: this.calculateTotalEmp(employee.Count, employee.PerPCost)
+    }));
+  }
+
+  calculateTotalEmp(count: number, perPCost: number): number {
+    return count * perPCost;
+  }
 
   menuitems=[{"item":"Gulab Jamun", "price": 20,include:false}
   ,{"item":"Kachori", "price": 12,include:false}
   ,{"item":"Samosa", "price": 15,include:false}]
 
-  order= [];
+  employeeExpend = [{"emptype":"Maharaj", "Count": 10,"PerPCost":800,include:false, Total:0}
+  ,{"emptype":"Bai", "Count": 20,"PerPCost":500,include:false,Total:0}
+  ,{"emptype":"Ghati", "Count": 4,"PerPCost":400,include:false,Total:0}];
 
   checkBoxClicked(eventtarget:any,item:any,i:any){
       console.log("Checkbox checked:",eventtarget.checked);
@@ -59,6 +80,7 @@ export class AppComponent {
      this.newItem="";
      this.newItemPrice=0;
   }
+
   deleteItem(i:number){
     if(this.menuitems[i].include)
     {
@@ -84,4 +106,38 @@ export class AppComponent {
     }
     this.TotalCost=this.sum*this.noOfPeople;
   }
+
+    checkBoxEmpClicked(eventtarget:any,employee:any,i:any){
+      console.log("Checkbox checked:",eventtarget.checked);
+
+      if(eventtarget.checked)
+      {
+        this.empTotal+=employee.Total;
+        this.employeeExpend[i].include=true;
+      }
+      else
+      {
+        this.empTotal-=employee.Total;
+        this.employeeExpend[i].include=false;
+      }
+  }
+
+    deleteEmpItem(i:number){
+      debugger
+    if(this.employeeExpend[i].include)
+    {
+      this.empTotal-=this.employeeExpend[i].Total;
+    }
+    this.employeeExpend.splice(i,1);
+  }
+
+    addNewEmpItem(){
+     let newobj= {"emptype":this.newEmpType, "Count": this.newEmpCount,"PerPCost":this.newEmpPPCost,include:false, Total:this.newEmpCount*this.newEmpPPCost};
+     this.employeeExpend.push(newobj);
+     this.hideEmpAddItem=true;
+     this.newEmpType="";
+     this.newEmpCount=0;
+     this.newEmpPPCost=0;
+  }
+
 }

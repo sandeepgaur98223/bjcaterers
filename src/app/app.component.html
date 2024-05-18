@@ -1,8 +1,7 @@
-<!-- Heading with styled business name -->
 <h1 class="centered business-name">B.J Caterers</h1>
 
-<h2 *ngIf="menuitems.length==0">Please add an Item to continue</h2>
-<h2 *ngIf="menuitems.length!=0">Please add an Item to continue</h2>
+<h2>Food Items:</h2>
+<h3 *ngIf="menuitems.length==0">Please add an Item to continue</h3>
 
 
 <ul *ngFor="let items of menuitems; let i = index">
@@ -40,6 +39,40 @@ Per Person Cost: {{sum}}
 <br>
 Number of People?: <input type="number" placeholder="enter count" (change)="calculateTotal($event.target)" width:10px/>
 <br>
-Total Cost: {{TotalCost}}
+<h4>Total Food Item Income: {{TotalCost}}</h4>
+<br>
+
+
+<h2>Employee Expenditure:</h2>
+
+<ul *ngFor="let employee of employeeExpend; let i = index">
+<li>
+Employee: {{employee.emptype}} <br>
+Count: {{employee.Count}}<br>
+Cost Per Person: {{employee.PerPCost}}<br>
+Total: {{employee.Total}}
+<input type="checkbox" (click)="checkBoxEmpClicked($event.target,employee,i)"/>
+<button (click)="deleteEmpItem(i)">Delete</button>
+</li>
+</ul>
+
+<button (click)="hideEmpAddItem=false" [hidden]=!hideEmpAddItem>Add Employee</button>
+<br>
+<ng-container *ngIf=!hideEmpAddItem>
+<p>Add Employee:</p>
+<br>
+<input type="text" placeholder="Employee Type" [(ngModel)]="newEmpType" />
+<input type="number" placeholder="Count" [(ngModel)]="newEmpCount" />
+<input type="number" placeholder="Per Person Cost" [(ngModel)]="newEmpPPCost" />
+<button (click)="addNewEmpItem()">Add</button>
 <br>
 <br>
+</ng-container>
+
+<h4>Employees Total Cost: {{empTotal}}</h4>
+
+
+<h2>Total Income: {{TotalCost-empTotal}}</h2>
+
+
+
