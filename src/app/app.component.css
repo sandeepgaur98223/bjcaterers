@@ -85,3 +85,14 @@ p {
   font-size: 18px;
   margin-bottom: 10px;
 }
+
+label {
+  display: block;      /* Ensures the label takes up the full width */
+  margin-bottom: 4px;  /* Adds space between the label and input */
+  font-size: 14px;     /* Adjust the font size as needed */
+  color: red;         /* Set the text color of the label */
+}
+
+label[hidden] {
+    display: none !important;
+}

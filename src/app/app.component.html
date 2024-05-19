@@ -39,20 +39,35 @@ Per Person Cost: {{sum}}
 <br>
 Number of People?: <input type="number" placeholder="enter count" (change)="calculateTotal($event.target)" width:10px/>
 <br>
-<h4>Total Food Item Income: {{TotalCost}}</h4>
+<h4 style="color:red;">Total Food Item Income: {{TotalCost}}</h4>
 <br>
-
 
 <h2>Employee Expenditure:</h2>
 
 <ul *ngFor="let employee of employeeExpend; let i = index">
 <li>
+<ng-container *ngIf="i!=editEmpIndex">
 Employee: {{employee.emptype}} <br>
 Count: {{employee.Count}}<br>
 Cost Per Person: {{employee.PerPCost}}<br>
 Total: {{employee.Total}}
-<input type="checkbox" (click)="checkBoxEmpClicked($event.target,employee,i)"/>
-<button (click)="deleteEmpItem(i)">Delete</button>
+</ng-container>
+<input type="checkbox" (click)="checkBoxEmpClicked($event.target,employee,i)" [hidden]="i==editEmpIndex"/>
+<button (click)="editEmpItem(i)" [hidden]="i==editEmpIndex">Edit</button>
+<button (click)="deleteEmpItem(i)" [hidden]="i==editEmpIndex">Delete</button>
+
+<ng-container *ngIf="i==editEmpIndex">
+<p>Edit Employee:</p>
+<br>
+<input type="text" id="empTypeE" placeholder="Employee Type" [(ngModel)]="employeeExpend[i].emptype" [required]=true /><br>
+<label for="empTypeE">* enter type</label><br>
+<input type="number" id="empCountE" placeholder="Count" [(ngModel)]="employeeExpend[i].Count" /><br>
+<label for="empCountE">* enter count</label><br>
+<input type="number" id="empPPCostE" placeholder="Per Person Cost" [(ngModel)]="employeeExpend[i].PerPCost" /><br>
+<label for="empPPCostE">* enter per employee cost</label><br>
+<button (click)="SaveEditedEmpItem(i)">Save</button>
+</ng-container>
+
 </li>
 </ul>
 
@@ -61,18 +76,68 @@ Total: {{employee.Total}}
 <ng-container *ngIf=!hideEmpAddItem>
 <p>Add Employee:</p>
 <br>
-<input type="text" placeholder="Employee Type" [(ngModel)]="newEmpType" />
-<input type="number" placeholder="Count" [(ngModel)]="newEmpCount" />
-<input type="number" placeholder="Per Person Cost" [(ngModel)]="newEmpPPCost" />
+<input type="text" id="empType" placeholder="Employee Type" [(ngModel)]="newEmpType" /><br>
+<label for="empType">* enter type</label><br>
+<input type="number" id="empCount" placeholder="Count" [(ngModel)]="newEmpCount" /><br>
+<label for="empCount">* enter count</label><br>
+<input type="number" id="empPPCost" placeholder="Per Person Cost" [(ngModel)]="newEmpPPCost" /><br>
+<label for="empPPCost">* enter per employee cost</label><br>
 <button (click)="addNewEmpItem()">Add</button>
 <br>
 <br>
 </ng-container>
 
+<h4 style="color:red;">Employees Total Cost: {{empTotal}}</h4>
+<br>
+
+<h2>Other Expenditure:</h2>
+
+<ul *ngFor="let other of otherExpend; let i = index">
+<li>
+<ng-container *ngIf="i !=editOtherIndex">
+{{other.othertype}} -- Rs. {{other.Cost}}
+</ng-container>
+
+<input type="checkbox" (click)="checkBoxOtherClicked($event.target,other,i)" [hidden]="i==editOtherIndex"/>
+<button (click)="editOtherItem(i)" [hidden]="i==editOtherIndex">Edit</button>
+<button (click)="deleteOtherItem(i)" [hidden]="i==editOtherIndex">Delete</button>
+
+<ng-container *ngIf="i==editOtherIndex">
+<p>Edit Other Expense Item:</p>
+<br>
+<input type="text" id="otherTypeE" placeholder="Other Type" [(ngModel)]="otherExpend[i].othertype" /><br>
+<label for="otherTypeE">* enter type</label><br>
+<input type="number" id="otherCostE" placeholder="Cost" [(ngModel)]="otherExpend[i].Cost"/><br>
+<label for="otherCostE">* enter cost</label><br>
+<button (click)="SaveEditedOtherItem(i)">Save</button>
+</ng-container>
+</li>
+</ul>
+
+<button (click)="hideOtherAddItem=false" [hidden]=!hideOtherAddItem>Add Other Expense</button>
+<br>
+<ng-container *ngIf=!hideOtherAddItem>
+<p>Add Other Item:</p>
+<br>
+<input type="text" id="otherType" placeholder="Other Type" [(ngModel)]="newOtherType" /><br>
+<label for="otherType">* enter type</label><br>
+<input type="number" id="otherCost" placeholder="Cost" [(ngModel)]="newOtherCost" /><br>
+<label for="otherCost">* enter cost</label><br>
+<button (click)="addNewOtherItem()">Add</button>
+<br>
+<br>
+</ng-container>
+
+<h4 style="color:red;">Other Total Cost: {{otherTotal}}</h4>
+<br>
+
+<h1 style="color:blue;">Final Collection:</h1>
+<h4>Total Food Item Income: {{TotalCost}}</h4>
 <h4>Employees Total Cost: {{empTotal}}</h4>
-
-
-<h2>Total Income: {{TotalCost-empTotal}}</h2>
+<h4>Other Total Cost: {{otherTotal}}</h4>
+<h1 style="color:blue;">Total Income: {{TotalCost-empTotal-otherTotal}}</h1>
+<button  (click)="totalIncomeInfoF()">i</button>
+<label [hidden]="hideTotalIncomeInfo">*Total Income = Total Food Item Income - Employees Total Cost - Other Total Cost </label>
 
 
 

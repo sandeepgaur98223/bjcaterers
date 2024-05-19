@@ -28,7 +28,16 @@ export class AppComponent {
   newEmpType="";
   newEmpCount:number=0;
   newEmpPPCost:number=0;
+  editEmpIndex=-1;
 
+ ///Other Expenditure
+  otherTotal=0;
+  hideOtherAddItem=true;
+  newOtherType="";
+  newOtherCost:number=0;
+  editOtherIndex=-1;
+  //
+  hideTotalIncomeInfo=true;
 
  constructor() {
     this.employeeExpend = this.employeeExpend.map(employee => ({
@@ -48,6 +57,10 @@ export class AppComponent {
   employeeExpend = [{"emptype":"Maharaj", "Count": 10,"PerPCost":800,include:false, Total:0}
   ,{"emptype":"Bai", "Count": 20,"PerPCost":500,include:false,Total:0}
   ,{"emptype":"Ghati", "Count": 4,"PerPCost":400,include:false,Total:0}];
+
+   otherExpend = [{"othertype":"Kirana", "Cost": 15000,include:false}
+  ,{"othertype":"Mineral Water", "Cost": 2000,include:false}
+  ,{"othertype":"Ras Malai", "Cost": 3000,include:false}];
 
   checkBoxClicked(eventtarget:any,item:any,i:any){
       console.log("Checkbox checked:",eventtarget.checked);
@@ -106,8 +119,8 @@ export class AppComponent {
     }
     this.TotalCost=this.sum*this.noOfPeople;
   }
-
-    checkBoxEmpClicked(eventtarget:any,employee:any,i:any){
+  //Emp Expenditure
+   checkBoxEmpClicked(eventtarget:any,employee:any,i:any){
       console.log("Checkbox checked:",eventtarget.checked);
 
       if(eventtarget.checked)
@@ -139,5 +152,79 @@ export class AppComponent {
      this.newEmpCount=0;
      this.newEmpPPCost=0;
   }
+
+    editEmpItem(i:number){
+    if(this.employeeExpend[i].include)
+    {
+      this.empTotal-=this.employeeExpend[i].Total;
+    }
+    this.editEmpIndex=i;
+  }
+
+  SaveEditedEmpItem(i:number){
+    this.editEmpIndex=-1;
+    this.employeeExpend[i].Total= this.employeeExpend[i].Count* this.employeeExpend[i].PerPCost;
+     if(this.employeeExpend[i].include)
+    {
+     this.empTotal+=this.employeeExpend[i].Total;
+    }
+  }
+
+   //Other Expenditure
+   checkBoxOtherClicked(eventtarget:any,other:any,i:any){
+      console.log("Checkbox checked:",eventtarget.checked);
+
+      if(eventtarget.checked)
+      {
+        this.otherTotal+=other.Cost;
+        this.otherExpend[i].include=true;
+      }
+      else
+      {
+        this.otherTotal-=other.Cost;
+         this.otherExpend[i].include=false;
+      }
+  }
+
+    deleteOtherItem(i:number){
+    if(this.otherExpend[i].include)
+    {
+      this.otherTotal-=this.otherExpend[i].Cost;
+    }
+    this.otherExpend.splice(i,1);
+  }
+
+    addNewOtherItem(){
+     let newobj= {"othertype":this.newOtherType, "Cost": this.newOtherCost,include:false};
+     this.otherExpend.push(newobj);
+     this.hideOtherAddItem=true;
+     this.newOtherType="";
+     this.newOtherCost=0;
+  }
+
+    editOtherItem(i:number){
+    if(this.otherExpend[i].include)
+    {
+      this.otherTotal-=this.otherExpend[i].Cost;
+    }
+    this.editOtherIndex=i;
+  }
+
+  SaveEditedOtherItem(i:number){
+    this.editOtherIndex=-1;
+     if(this.otherExpend[i].include)
+    {
+     this.otherTotal+=this.otherExpend[i].Cost;
+    }
+  }
+
+  //
+  totalIncomeInfoF()
+  {
+    debugger
+    this.hideTotalIncomeInfo=!this.hideTotalIncomeInfo;
+  }
+
+
 
 }
