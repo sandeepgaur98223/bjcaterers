@@ -36,7 +36,7 @@ export class AppComponent {
   newOtherType="";
   newOtherCost:number=0;
   editOtherIndex=-1;
-  //
+  //Total Income Info
   hideTotalIncomeInfo=true;
 
  constructor() {
@@ -136,7 +136,6 @@ export class AppComponent {
   }
 
     deleteEmpItem(i:number){
-      debugger
     if(this.employeeExpend[i].include)
     {
       this.empTotal-=this.employeeExpend[i].Total;
@@ -218,13 +217,10 @@ export class AppComponent {
     }
   }
 
-  //
+  //Total Income Info
   totalIncomeInfoF()
   {
-    debugger
     this.hideTotalIncomeInfo=!this.hideTotalIncomeInfo;
   }
-
-
 
 }
