@@ -55,8 +55,10 @@ export class AppComponent {
   ,{"item":"Samosa", "price": 15,include:false}]
 
   employeeExpend = [{"emptype":"Maharaj", "Count": 10,"PerPCost":800,include:false, Total:0}
-  ,{"emptype":"Bai", "Count": 20,"PerPCost":500,include:false,Total:0}
-  ,{"emptype":"Ghati", "Count": 4,"PerPCost":400,include:false,Total:0}];
+  ,{"emptype":"English Waiter", "Count": 10,"PerPCost":1100,include:false, Total:0}
+  ,{"emptype":"Sadha Waiter", "Count": 10,"PerPCost":1000,include:false, Total:0}
+  ,{"emptype":"Bai", "Count": 10,"PerPCost":450,include:false,Total:0}
+  ,{"emptype":"Ghati", "Count": 4,"PerPCost":1000,include:false,Total:0}];
 
    otherExpend = [{"othertype":"Kirana", "Cost": 15000,include:false}
   ,{"othertype":"Mineral Water", "Cost": 2000,include:false}
